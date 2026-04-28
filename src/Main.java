@@ -1,0 +1,71 @@
+/**
+ *
+ * @author ShaheerZK
+ */
+public class Main 
+{
+    public static void main(String[] args) 
+    {
+        //stackExample();
+        //arrayListExample();
+        //queueExample();
+        linkedListExample();
+    }
+    public static void stackExample()
+    {
+        final int SIZE = 10;
+        Stack<Integer> stackOfStrings = new Stack<>(SIZE);
+        
+        for (int i = 0; i < SIZE; i++)
+        {
+            stackOfStrings.push(i);
+        }
+        for (int i = 0; i < SIZE; i++)
+        {
+            System.out.println(stackOfStrings.pop());
+        }
+        System.out.println(stackOfStrings.getStackType());
+    }
+    public static void arrayListExample()
+    {
+        final int SIZE = 50;
+        ArrayList<Integer> arrayList = new ArrayList<>(SIZE);
+        for (int i = 0; i < SIZE * 2; i++)
+        {
+            arrayList.add(i);
+        }
+        for (int i = 0; i < arrayList.size(); i++)
+        {
+            System.out.println(arrayList.get(i));
+        }
+        arrayList.clear();
+        for (int i = 0; i < arrayList.size(); i++)
+        {
+            System.out.println(arrayList.get(i));
+        }
+    }
+    public static void queueExample()
+    {
+        final int SIZE = 20;
+        Queue<Double> queue = new Queue<>(SIZE);
+        
+        for (int i = 0; i < SIZE; i++)
+        {
+            queue.enqueue((double)i);
+        }
+        for (int i = 0; i < SIZE; i++)
+        {
+            System.out.println(queue.dequeue());
+        }
+    }
+    public static void linkedListExample()
+    {
+        final int size = 20;
+        LinkedList<Integer> linkedList = new LinkedList(size);
+        
+        for (int i = 0; i < size; i++)
+        {
+            linkedList.add(i);
+        }
+    }
+}
