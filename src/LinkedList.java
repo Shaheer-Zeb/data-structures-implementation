@@ -91,6 +91,7 @@ public class LinkedList<T>
         Node node = new Node(obj, null, head);
         head.previous = node;
         head = node;
+        size++;
     }
     /**
      * Literally the same thing as add(), don't know why you'd use addLast() instead of add().
@@ -194,8 +195,160 @@ public class LinkedList<T>
         }
         return -1;
     }
+    /**
+     * If the index is valid, replaces the element at the specified index in the LinkedList.
+     * @param index
+     * @param obj 
+     */
+    public void set(int index, T obj)
+    {
+        if (index < 0)
+        {
+            System.out.println("The index to be set can't be negative and has to be less than the size.");
+            return;
+        }
+        Node node = head;
+        for (int i = 0; node != null; node = node.next, i++)
+        {
+            if (i == index)
+            {
+                node.obj = obj;
+                break;
+            }
+        }
+    }
+    /**
+     * If the index is valid, returns and removes the object stored at the specified index
+     * @param index
+     * @return 
+     */
+    public T remove(int index)
+    {
+        if (index < 0 || index >= size)
+        {
+            System.out.println("The index has to be positive and less than the size.");
+            return null;
+        }
+        Node node = head;
+        for (int i = 0; node != null; node = node.next, i++)
+        {
+            if (node != head && node != tail && i == index)
+            {
+                T obj = (T)node.obj;
+                node.previous.next = node.next;
+                node.next.previous = node.previous;
+                node.obj = null;
+                node.next = null;
+                node.previous = null;
+                size--;
+                
+                return obj;
+            }
+            else if (node == head && i == index)
+            {
+                T obj = (T)node.obj;
+                head = head.next;
+                head.previous = null;
+                size--;
+                
+                return obj;
+            }
+            else if (node == tail && i == index)
+            {
+                T obj = (T)node.obj;
+                tail = tail.previous;
+                tail.next = null;
+                size--;
+                
+                return obj;
+            }
+        }
+        return null;
+    }
+    /**
+     * Removes and returns true if it found the specified object, if the object isn't found or if it's null, it'd return false.
+     * @param obj
+     * @return 
+     */
+    public boolean remove(T obj)
+    {
+        if (obj == null)
+            return false;
+        for (Node node = head; node != null; node = node.next)
+        {
+            if (node == head && node.obj.equals(obj))
+            {
+                head.obj = null;
+
+                head = head.next;
+                head.previous = null;
+
+                size--;
+                return true;
+            }
+            else if (node == tail && node.obj.equals(obj))
+            {
+                tail.obj = null;
+
+                tail = tail.previous;
+                tail.next = null;
+
+                size--;
+                return true;
+            }
+            else if (node.obj.equals(obj))
+            {
+                node.obj = null;
+                node.previous.next = node.next;
+                node.next.previous = node.previous;
+
+                size--;
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Removes and returns the first element from the list.
+     * @return 
+     */
+    public T removeFirst()
+    {
+        return remove(0);
+    }
+    /**
+     * Removes and returns the last element on the list.
+     * @return 
+     */
+    public T removeLast()
+    {
+        return remove(size - 1);
+    }
+    /**
+     * Returns the size of the LinkedList.
+     * @return 
+     */
     public int size()
     {
         return size;
+    }
+    public void ensureCapacity(int capacity)
+    {
+        if (this.capacity < capacity)
+            this.capacity = capacity;
+    }
+    /**
+     * Returns an array of the same type as the LinkedList with all the objects in the LinkedList.
+     * @return 
+     */
+    public T[] toArray()
+    {
+        T[] arr = (T[]) new Object[size];
+        Node node = head;
+        for (int i = 0; node != null; i++, node = node.next)
+        {
+            arr[i] = (T)node.obj;
+        }
+        return arr;
     }
 }
