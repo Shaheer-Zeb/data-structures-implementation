@@ -1,6 +1,7 @@
 /**
  *
  * @author ShaheerZK
+ * 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
  */
 public class Main 
 {
@@ -9,7 +10,8 @@ public class Main
         //stackExample();
         //arrayListExample();
         //queueExample();
-        linkedListExample();
+        //linkedListExample();
+        hashMapExample();
     }
     public static void stackExample()
     {
@@ -70,6 +72,19 @@ public class Main
         for (int i = 0; i < size; i++)
         {
             System.out.println(linkedList.get(i));
+        }
+    }
+    public static void hashMapExample()
+    {
+        final int SIZE = 100;
+        HashMap<Integer, String> hashmap = new HashMap<>();
+        for (int i = 0; i < SIZE; i++)
+        {
+            hashmap.put(i, "Shaheer " + i);
+        }
+        for (int i = 0; i < SIZE; i++)
+        {
+            System.out.println(hashmap.get(i));
         }
     }
 }
