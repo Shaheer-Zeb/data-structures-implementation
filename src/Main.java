@@ -1,7 +1,6 @@
 /**
  *
  * @author ShaheerZK
- * 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
  */
 public class Main 
 {
