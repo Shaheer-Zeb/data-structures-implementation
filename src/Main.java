@@ -10,8 +10,10 @@ public class Main
         //stackExample();
         //arrayListExample();
         //queueExample();
-        //linkedListExample();
-        hashMapExample();
+        linkedListExample();
+        //hashMapExample();
+        //arrayDequeExample();
+        //linkedListDeque();
     }
     public static void stackExample()
     {
@@ -36,10 +38,8 @@ public class Main
         {
             arrayList.add(i);
         }
-        for (int i = 0; i < arrayList.size(); i++)
-        {
-            System.out.println(arrayList.get(i));
-        }
+        for (Integer i : arrayList)
+            System.out.println(i);
         arrayList.clear();
         for (int i = 0; i < arrayList.size(); i++)
         {
@@ -63,16 +63,14 @@ public class Main
     public static void linkedListExample()
     {
         final int size = 20;
-        LinkedList<Integer> linkedList = new LinkedList(size);
+        LinkedList<Integer> linkedList = new LinkedList();
         
         for (int i = 0; i < size; i++)
         {
             linkedList.add(i);
         }
-        for (int i = 0; i < size; i++)
-        {
-            System.out.println(linkedList.get(i));
-        }
+        for (Integer i : linkedList)
+            System.out.println(i);
     }
     public static void hashMapExample()
     {
@@ -86,5 +84,25 @@ public class Main
         {
             System.out.println(hashmap.get(i));
         }
+    }
+    public static void arrayDequeExample()
+    {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        
+        deque.insertStart(1);
+        System.out.println(deque.getStart());
+        
+        deque.insertEnd(0);
+        System.out.println(deque.getEnd());
+    }
+    public static void linkedListDeque()
+    {
+        LinkedListDeque deque = new LinkedListDeque();
+        
+        deque.insertStart(100);
+        System.out.println(deque.getStart());
+        
+        deque.insertEnd(200);
+        System.out.println(deque.getEnd());
     }
 }

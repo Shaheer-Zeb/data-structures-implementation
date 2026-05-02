@@ -1,14 +1,34 @@
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author ShaheerZK
  */
-public class ArrayList<T>
+public class ArrayList<T> implements Iterable<T>
 {
     private int size;
     private int capacity;
+    private int iteratorCurrentIndex = 0;
+    private final int growingFactor = 2;
     private static final int DEFAULTSIZE = 100;
     private T[] arr;
+    
+    private class ArrayListIterator implements Iterator<T>
+    {
+        @Override
+        public boolean hasNext() 
+        {
+            return iteratorCurrentIndex < size;
+        }
+        @Override
+        public T next() 
+        {
+            if (!hasNext())
+                throw new NoSuchElementException();
+            return arr[iteratorCurrentIndex++];
+        }
+    }
     
     public ArrayList(int capacity)
     {
@@ -36,16 +56,24 @@ public class ArrayList<T>
             arr[size++] = obj;
         else
         {
-            ensureCapacity(capacity * 2);
+            ensureCapacity(capacity * growingFactor);
             arr[size++] = obj;
         }
+    }
+    public void addStart(T obj)
+    {
+        if (size > capacity)
+            ensureCapacity(capacity * growingFactor);
+        shiftArrayRightByOne();
+        arr[0] = obj;
+        size++;
     }
     /**
      * Replaces the object at the provided index.
      * @param index
      * @param obj 
      */
-    public void add(int index, T obj)
+    public void replace(int index, T obj)
     {
         if (index >= 0 && index <= size)
             arr[index] = obj;
@@ -183,9 +211,22 @@ public class ArrayList<T>
     {
         remove(indexOf(obj));
     }
+    /**
+     * Removes the last occurrence of the specified object.
+     * @param obj 
+     */
+    public void removeLast(T obj)
+    {
+        remove(lastIndexOf(obj));
+    }
     private void shiftArray(int index, int numMoved)
     {
         System.arraycopy(arr, index + 1, arr, index, numMoved);
+    }
+    private void shiftArrayRightByOne()
+    {
+        ensureCapacity(capacity + 1);
+        System.arraycopy(arr, 0, arr, 1, size);
     }
     /**
      * Returns the size of the ArrayList.
@@ -218,5 +259,11 @@ public class ArrayList<T>
     public String getArrayListType()
     {
         return arr[0].getClass().getName();
+    }
+
+    @Override
+    public Iterator<T> iterator() 
+    {
+        return new ArrayListIterator();
     }
 }

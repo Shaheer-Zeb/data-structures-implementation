@@ -1,16 +1,39 @@
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * @author ShaheerZK
  */
-public class LinkedList<T>
+public class LinkedList<T> implements Iterable<T>
 {
     private int size;
-    private static final int DEFAULTSIZE = 100;
-    private int capacity;
     
     private Node<T> head;
     private Node<T> tail;
-    private Node<T> last;
-    
+
+    private class LinkedListIterator implements Iterator<T>
+    {
+        Node node = head;
+        @Override
+        public boolean hasNext() 
+        {
+            return node != null;
+        }
+        @Override
+        public T next() 
+        {
+            if (!hasNext())
+                throw new NoSuchElementException();
+            T obj = (T)node.obj;
+            node = node.next;
+            return obj;
+        }
+    }
+    @Override
+    public Iterator<T> iterator() 
+    {
+        return new LinkedListIterator();
+    }
     private class Node<T>
     {
         T obj;
@@ -31,30 +54,6 @@ public class LinkedList<T>
             this(null, null, null);
         }
     }
-    public LinkedList(int capacity)
-    {
-        initHeadAndTail();
-        if (capacity > 0)
-            this.capacity = capacity;
-        else
-        {
-            System.out.println("The capacity has to be positive. Default capacity of " + DEFAULTSIZE + " has been assigned.");
-            this.capacity = DEFAULTSIZE;
-        }
-    }
-    public LinkedList()
-    {
-        this(DEFAULTSIZE);
-    }
-    private void initHeadAndTail()
-    {
-        head = new Node();
-        tail = new Node();
-        last = new Node();
-        
-        head.next = tail;
-        tail.previous = head;
-    }
     /**
      * Adding an element to the end of the list.
      * @param obj 
@@ -62,25 +61,18 @@ public class LinkedList<T>
     public void add(T obj)
     {
         Node<T> node;
-        if (head == null && tail == null && size < capacity)
+        if (head == null)
         {
             node = new Node(obj, null, null);
             head = node;
-            tail = node;
-            last = node;
-            
-            size++;
-        }
-        else if (size < capacity)
-        {
-            node = new Node(obj, last, null);
-            last.next = node;
-            tail = node;
-            
-            size ++;
         }
         else
-            System.out.println("The LinkedList overflowed perhaps. Try calling the ensureCapacity() method.");
+        {
+            node = new Node(obj, tail, null);
+            tail.next = node;
+        }
+        tail = node;            
+        size ++;
     }
     /**
      * Adds the object at the beginning of the list.
@@ -331,11 +323,6 @@ public class LinkedList<T>
     public int size()
     {
         return size;
-    }
-    public void ensureCapacity(int capacity)
-    {
-        if (this.capacity < capacity)
-            this.capacity = capacity;
     }
     /**
      * Returns an array of the same type as the LinkedList with all the objects in the LinkedList.
