@@ -1,7 +1,6 @@
 /**
  *
  * @author ShaheerZK
- * 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
  */
 public class Main 
 {
@@ -10,10 +9,12 @@ public class Main
         //stackExample();
         //arrayListExample();
         //queueExample();
-        linkedListExample();
+        //linkedListExample();
         //hashMapExample();
         //arrayDequeExample();
         //linkedListDeque();
+        //binaryTreeExample();
+        bstExample();
     }
     public static void stackExample()
     {
@@ -104,5 +105,45 @@ public class Main
         
         deque.insertEnd(200);
         System.out.println(deque.getEnd());
+    }
+    public static void binaryTreeExample()
+    {
+        BinaryTree binaryTree = new BinaryTree();
+        
+        for (int i = 0; i < 7; i++)
+            binaryTree.insert(i + 1);
+        
+        binaryTree.remove(5);
+        
+        binaryTree.inorderTraversal(binaryTree.getRoot());
+        System.out.println("");
+        
+        binaryTree.preorderTraversal(binaryTree.getRoot());
+        System.out.println("");
+        
+        binaryTree.postorderTraversal(binaryTree.getRoot());
+        System.out.println("");
+                
+        ArrayList<ArrayList<Integer>> list = binaryTree.levelorderTraversal(binaryTree.getRoot());
+        for (ArrayList subList : list)
+        {
+            for (var i : subList)
+                System.out.print(i + " ");
+            System.out.print("");
+        }
+        System.out.println("");
+        System.out.println("Height: " + binaryTree.getHeight(binaryTree.getRoot()));
+    }
+    public static void bstExample()
+    {
+        BST bst = new BST(10);
+        bst.insert(90);
+        bst.insert(8);
+        bst.insert(80);
+        bst.insert(1);
+                
+        bst.inorderTraversal(bst.getRoot());
+        
+        System.out.println(bst.search(99));
     }
 }

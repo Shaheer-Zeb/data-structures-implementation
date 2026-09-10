@@ -60,6 +60,10 @@ public class ArrayList<T> implements Iterable<T>
             arr[size++] = obj;
         }
     }
+    /**
+     * Adds the element to the start of the ArrayList.
+     * @param obj 
+     */
     public void addStart(T obj)
     {
         if (size > capacity)
