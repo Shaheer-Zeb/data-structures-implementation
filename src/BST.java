@@ -18,6 +18,11 @@ public class BST<T extends Comparable<? super T>> extends BinaryTree<T>
     @Override
     public void insert(T obj)
     {
+        if (root == null)
+        {
+            root = new Node(obj);
+            return;
+        }
         Comparable comparableObj = null;
         if (obj instanceof Comparable)
             comparableObj = (Comparable)obj;
@@ -176,6 +181,36 @@ public class BST<T extends Comparable<? super T>> extends BinaryTree<T>
     }
     private void removeTwoChildrenNode(Node node, Node left, Node right)
     {
+        Node inorderPredecessor = getInorderPredecessor(left);
+        node.obj = inorderPredecessor.obj;
+        removeImpotentNode(inorderPredecessor);
+    }
+    /**
+     * Returns the node with the largest obj in the left subtree.
+     * @param node
+     * @return 
+     */
+    private Node getInorderPredecessor(Node node)
+    {
+        Node inorderPredecessor = node;
+        Queue<Node> queue = new Queue<>();
+        queue.enqueue(node);
         
+        while (!queue.isEmpty())
+        {
+            Node removedNode = queue.dequeue();
+            
+            Comparable removedComparable = (Comparable)removedNode.obj;
+            Comparable inorderPredecessorComparable = (Comparable)inorderPredecessor.obj;
+            
+            if (removedComparable.compareTo(inorderPredecessorComparable) > 0)
+                inorderPredecessor = removedNode;
+            
+            if (removedNode.left != null)
+                queue.enqueue(removedNode.left);
+            if (removedNode.right != null)
+                queue.enqueue(removedNode.right);
+        }
+        return inorderPredecessor;
     }
 }

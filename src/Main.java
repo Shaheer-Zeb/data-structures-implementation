@@ -1,5 +1,4 @@
 /**
- *
  * @author ShaheerZK
  */
 public class Main 
@@ -141,7 +140,9 @@ public class Main
         bst.insert(8);
         bst.insert(80);
         bst.insert(1);
+        bst.insert(9);
                 
+        bst.remove(10);
         bst.inorderTraversal(bst.getRoot());
         
         System.out.println(bst.search(99));
