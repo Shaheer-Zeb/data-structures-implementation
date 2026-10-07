@@ -4,7 +4,7 @@
 */
 public class Graph<T>
 {
-	private Hashmap<T, LinkedList<T>> map = new Hashmap<>();
+	private HashMap<T, LinkedList<T>> map = new Hashmap<>();
 	private int vertices = 0, edges = 0;
 
 	public void addVertex(T data)
@@ -23,12 +23,12 @@ public class Graph<T>
 	}
 	public void dfs(T source)
 	{
-		Hashmap<T, Integer> visited = new Hashmap<>();
+		HashMap<T, Integer> visited = new HashMap<>();
 		if (!map.containsKey(source))
 			return;
 		dfsHelper(source, visited);
 	}
-	private void dfsHelper(T vertex, Hashmap<T, Integer> visited)
+	private void dfsHelper(T vertex, HashMap<T, Integer> visited)
 	{
 		visited.add(vertex);
 		System.out.print(vertex + " ");
